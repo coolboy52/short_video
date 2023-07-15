@@ -24,5 +24,7 @@ public class VideoComment {
     private String content;
     //创建时间
     private String createTime;
+    //点赞数
+    private long likeNumber;
 
 }

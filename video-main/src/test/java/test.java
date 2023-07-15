@@ -1,12 +1,16 @@
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.commons.compress.utils.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 import wen.short_video.common.utils.Qiniuutil;
+import wen.short_video.system.entity.User;
 import wen.short_video.system.entity.Video;
+import wen.short_video.system.mapper.UserMapper;
 import wen.short_video.system.mapper.VideoMapper;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,6 +22,9 @@ public class test {
 
     @Autowired
     private VideoMapper videoMapper;
+
+    @Autowired
+    private UserMapper userMapper;
     Qiniuutil qiniuutil = new Qiniuutil();
     public static void main(String[] args) {
 
@@ -56,6 +63,15 @@ public class test {
     public void videoList(){
         List<Video> video = videoMapper.getVideo();
         System.out.println(video);
+    }
+
+    @Test
+    public void plustest(){
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getUserName, "wen");
+        User user = userMapper.selectOne(wrapper);
+
+        System.out.println(user.toString());
     }
 
 
